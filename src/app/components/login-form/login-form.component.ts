@@ -1,37 +1,42 @@
-import { Component, Input } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnChanges{
 
-  @Input() isSignUp: boolean = true;
+  @Input() isSignUp!: boolean;
 
   formUser!: FormGroup;
   
   defaultFields = {
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required)
   }
 
   extraFields = {
     name: new FormControl(''),
-    lastName: new FormControl(''),
+    lastName: new FormControl('')
   }
 
   constructor(
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) { 
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.initForm();
+    console.log(changes);
   }
 
   initForm(){
-    let userFields = {...this.defaultFields}
+    let userFields = { ...this.defaultFields };
     if(this.isSignUp){
-      userFields = {...this.defaultFields, ...this.extraFields}
+      userFields = { ...this.defaultFields, ...this.extraFields };
     }
     this.formUser = this.fb.group({
       userFields

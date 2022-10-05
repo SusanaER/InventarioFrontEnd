@@ -15,14 +15,14 @@
     <!-- Email input -->
     <mat-form-field appearance="outline" class="col-md-12 mb-4">
       <mat-label>Email address</mat-label>
-      <input matInput placeholder="example@gmail.com" formControlName="email">
+      <input type="email" matInput placeholder="example@gmail.com" formControlName="email">
     </mat-form-field>
 
     <!-- Password input -->
     <mat-form-field appearance="outline" class="col-md-12 mb-4">
       <mat-label>Password</mat-label>
-      <input matInput placeholder="Ingrese your password" formControlName="password">
+      <input type="password" matInput placeholder="Ingrese your password" formControlName="password">
     </mat-form-field>
 
-    <button type="submit" mat-raised-button class="col-md-12" color="primary">{{isSignUp ? 'Sign Up' : 'Sign In'}} </button>
+    <button type="submit" mat-raised-button class="col-md-12" color="primary" [disabled]="formUser.invalid">{{isSignUp ? 'Sign Up' : 'Sign In'}} </button>
   </form>
