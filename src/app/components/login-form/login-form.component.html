@@ -3,12 +3,17 @@
     <div class="row" *ngIf="isSignUp == true">
       <mat-form-field appearance="outline" class="col-md-6 mb-4">
         <mat-label>First name</mat-label>
-        <input matInput placeholder="Ingrese First name" formControlName="name">
+        <input matInput placeholder="Ingrese First name" formControlName="firstName">
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="col-md-6 mb-4">
         <mat-label>Last name</mat-label>
         <input matInput placeholder="Ingrese Last name" formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-md-12 mb-4">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="Ingrese Phone Number" formControlName="phoneNumber">
       </mat-form-field>
     </div>
 

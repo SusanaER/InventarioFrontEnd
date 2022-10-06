@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,9 +9,13 @@ import { Component } from '@angular/core';
 })
 export class SignUpComponent {
 
-  constructor() { }
+  constructor(
+    private login:AccountService,
+    private router: Router
+  ) { }
 
   respForm(response: any){
-    console.log('Respuesta desde Sign Up', response);
+    let request = {...response.value, status: true}
+    this.login.SignUp(request).subscribe(() => this.router.navigate(['/sign-in']));
   }
 }
