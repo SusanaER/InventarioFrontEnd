@@ -35,6 +35,19 @@ body {font-family: "Lato", sans-serif;}
 }
 
 @media screen and (max-width: 650px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 18px;}
+    .sidebar {
+      width: 60px;
+    }
+    .sidebar span{
+      display: none;
+    }
+    .sidebar:hover{
+      width: 160px;
+    }
+    .sidebar:hover span{
+      display: contents;
+    }
+    .main{
+      margin-left: 60px;
+    }
 }
