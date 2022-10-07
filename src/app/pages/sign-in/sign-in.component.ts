@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { signIn } from 'src/app/core/interfaces/user';
 import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
@@ -14,8 +15,8 @@ export class SignInComponent {
     private router: Router
   ) { }
 
-  respForm(response: any){
+  respForm(response: signIn){
     console.log('Respuesta desde Sign In', response);
-    this.login.SignIn(response.value).subscribe(() => this.router.navigate(['/home']));
+    this.login.SignIn(response).subscribe(() => this.router.navigate(['/home']));
   }
 }

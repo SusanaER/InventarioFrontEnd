@@ -44,7 +44,7 @@ export class LoginFormComponent implements OnChanges{
   }
 
   onSubmit(){
-    this.responseForm.emit(this.formUser);
+    this.responseForm.emit(this.formUser.value);
   }
 
 }
