@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
@@ -9,11 +10,12 @@ import { AccountService } from 'src/app/core/services/account.service';
 export class SignInComponent {
 
   constructor(
-    private login: AccountService
+    private login: AccountService,
+    private router: Router
   ) { }
 
   respForm(response: any){
     console.log('Respuesta desde Sign In', response);
-    this.login.SignIn(response.value).subscribe(console.log);
+    this.login.SignIn(response.value).subscribe(() => this.router.navigate(['/home']));
   }
 }
