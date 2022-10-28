@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HasSessionGuard } from './core/guards/has-session.guard';
 import { AdminLayoutComponent } from './share/admin-layout/admin-layout.component';
 import { InitLayoutComponent } from './share/init-layout/init-layout.component';
 
@@ -13,9 +14,9 @@ const routes: Routes = [
   },
   {
     path:'', component:AdminLayoutComponent, children:[
-      { path: 'inventory', loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule) },
-      { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
-      { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
+      { path: 'inventory', loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule), canActivate: [HasSessionGuard] },
+      { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule), canActivate: [HasSessionGuard] },
+      { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule), canActivate: [HasSessionGuard] },
       { path: 'not-found', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
     ]
   },

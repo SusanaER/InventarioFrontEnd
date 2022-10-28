@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { signIn, User } from '../interfaces/user';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { ResponseModel } from '../interfaces/response-model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,13 +17,29 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  SignIn(request: signIn): Observable<any>{
-    let url: string = `${this.urlBase}api/Account`;
-    return this.http.post<any>(url, request, this.httpOptions);
+  errorHandler(error: HttpErrorResponse){
+    let errorMessage = `Error Code: ${error.status}`;
+    if(error.status != 200){
+      errorMessage = `${errorMessage} \n message: ${error.error.message}`
+    }
+    if(error.error instanceof ErrorEvent){
+      errorMessage = `errorMessage \n message: ${error.error.message}`
+    }
+    if(error.error.hasError && error.status == 200){
+      errorMessage = `message: ${error.error.message}`
+    }
+    return throwError(errorMessage);
   }
 
-  SignUp(request:User): Observable<any>{
+  SignIn(request: signIn): Observable<ResponseModel<any>>{
+    let url: string = `${this.urlBase}api/Account`;
+    return this.http.post<ResponseModel<any>>(url, request, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  SignUp(request:User): Observable<ResponseModel<any>>{
     let url: string = `${this.urlBase}api/User`;
-    return <any>this.http.post(url, request, this.httpOptions);
+    return <any>this.http.post<ResponseModel<any>>(url, request, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
   }
 }
